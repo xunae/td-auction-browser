@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WoW Auction Browser</title>
+    <script src="https://wow.zamimg.com/js/tooltips.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/app.css" />
+  </head>
+  <body>
+    <button
+      id="data-source-toggle"
+      title="Auction Data Source"
+      aria-label="Auction Data Source"
+    >
+      🗂
+    </button>
+    <div id="data-source-overlay"></div>
+    <div id="data-source-modal">
+      <div class="data-source-panel">
+        <div class="data-source-title-row">
+          <div class="data-source-header">Auction Data Source</div>
+          <button
+            class="data-source-close"
+            id="data-source-close-btn"
+            aria-label="Close data source dialog"
+          >
+            ✕
+          </button>
+        </div>
+        <div class="data-source-help">
+          Paste your `data.xml` content or load a local file, then save it in
+          this browser. This is required before searching.
+        </div>
+        <textarea
+          id="data-input"
+          placeholder="Paste data.xml content here..."
+        ></textarea>
+        <div class="data-source-actions">
+          <input type="file" id="data-file" accept=".xml,.txt,text/plain" />
+          <button class="data-btn" id="save-data-btn">Save and Use Data</button>
+          <button class="data-btn" id="clear-data-btn">Clear Saved Data</button>
+        </div>
+        <div class="data-source-meta">
+          Last updated: <span id="data-updated-at">Never</span>
+        </div>
+        <div class="data-source-status" id="data-status"></div>
+      </div>
+    </div>
+    <div id="view-tabs" role="tablist" aria-label="App Views">
+      <button
+        class="view-tab active"
+        id="tab-search"
+        type="button"
+        role="tab"
+        aria-selected="true"
+        aria-controls="search-view"
+      >
+        Search
+      </button>
+      <button
+        class="view-tab"
+        id="tab-resto-summary"
+        type="button"
+        role="tab"
+        aria-selected="false"
+        aria-controls="resto-summary-view"
+      >
+        Resto Summary
+      </button>
+    </div>
+
+    <section id="search-view">
+      <input type="text" id="search" placeholder="Search items..." autofocus />
+      <div id="results"></div>
+      <div id="results-pagination" aria-live="polite">
+        <button class="results-page-btn" id="results-prev-btn" type="button">
+          Previous
+        </button>
+        <div id="results-page-text">1 of 1</div>
+        <button class="results-page-btn" id="results-next-btn" type="button">
+          Next
+        </button>
+      </div>
+    </section>
+
+    <section id="resto-summary-view" class="view-hidden">
+      <div class="resto-summary-header">
+        <h2>Restoration Shaman TBC Anniversary</h2>
+        <p>
+          Tracks high-value AH consumables and enchants/imbues. Vendor-only or
+          BoP upgrades are not included.
+        </p>
+      </div>
+      <div class="resto-summary-status" id="resto-summary-status"></div>
+      <div id="resto-summary-categories"></div>
+      <div id="resto-summary-total">
+        <span class="resto-summary-total-label">Estimated One-Each Total</span>
+        <span class="resto-summary-total-price" id="resto-summary-total-price"
+          >-</span
+        >
+      </div>
+    </section>
+
+    <!-- Cart toggle -->
+    <button id="cart-toggle" title="Shopping List">
+      🛒
+      <span id="cart-badge">0</span>
+    </button>
+
+    <!-- Cart overlay -->
+    <div id="cart-overlay"></div>
+
+    <!-- Cart panel -->
+    <div id="cart-panel">
+      <div class="cart-header">
+        <h2>🛒 Shopping List</h2>
+        <button class="cart-close" id="cart-close-btn">✕</button>
+      </div>
+      <div class="cart-items" id="cart-items"></div>
+      <div class="cart-footer" id="cart-footer" style="display: none">
+        <div class="cart-total">
+          <span class="cart-total-label">Total</span>
+          <span class="cart-total-price" id="cart-total-price"></span>
+        </div>
+        <button class="cart-clear" id="cart-clear-btn">Clear All</button>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script type="module" src="assets/js/main.js"></script>
+  </body>
+</html>
